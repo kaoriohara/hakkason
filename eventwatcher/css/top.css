@@ -31,14 +31,25 @@ li{list-style:none;}
 body {
 	    background-color :#FAFAF6;
 }
-h1 {
-margin-top: -142px;
-padding-top: 160px;
-padding-bottom: 47px;
+.main h1 {
+margin-top: -30px;
+/*padding-top: 160px;*/
+/*padding-bottom: 47px;*/
 max-width: none;
 min-width: inherit;
 width: auto;
-background-color: #fff;
+background-color: #FAFAF6;
+border-radius: 30px;
+text-align: center;
+}
+.main h2 {
+/*margin-top: -142px;
+padding-top: 160px;*/
+/*padding-bottom: 47px;*/
+max-width: none;
+min-width: inherit;
+width: auto;
+background-color: #FAFAF6;
 border-radius: 30px;
 text-align: center;
 }
