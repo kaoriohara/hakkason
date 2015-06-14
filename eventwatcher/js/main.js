@@ -129,12 +129,19 @@ $(function () {
 		//子午線周囲 Ry = 40008.6km
 		//経度 Rx cosθ / (360×60) = 1519.85m
 		var msgDom = document.createElement("li");
+		msgDom.className = "entry";
 		if(latSa < 1/111323.61111111111*100 && lonSa < 1/111323.61111111111*100){
-				msgDom.innerHTML = '<div class="clearfix">'+
+			msgDom.innerHTML = '<span class="message">' + text.message + '</span>' + 
+				'<span class="status">' +
+					'<span class="time">' + text.input_date + '</span>' + 
+				'<span class="location"><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a></span></span>';
+				/*msgDom.innerHTML = '<div class="clearfix">'+
 					'<span class="text_message">' + text.message + '</span>' + 
+					'<br><span class="text_lat">' + text.lat + '</span>' + 
+					'<br><span class="text_lon">' + text.lon + '</span>' + 
 					'<br><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a></span>' + 
 					'<br><span class="text_Time">' + text.input_date + '</span>' + 
-					'<br><span class="id">' + id + '</span></div>';
+					'<br><span class="id">' + id + '</span></div>';*/
 			$('#board').append(msgDom);
 			scrollSet();
 			}else{
@@ -155,7 +162,7 @@ $(function () {
 
 	//--------------------------発言削除用-----------------------------
 	$("#board").on("dblclick",'li',function(){
-		if($(this).find('.text_name').text() != localStorage.getItem("name")) return;
+		//if($(this).find('.text_name').text() != localStorage.getItem("name")) return;
 		// 「OK」時の処理開始 ＋ 確認ダイアログの表示
 		if(window.confirm('発言を削除しますか？')){
 			paper_round.pause();
