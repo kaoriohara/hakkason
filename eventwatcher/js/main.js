@@ -134,7 +134,7 @@ $(function () {
 			msgDom.innerHTML = '<span class="message">' + text.message + '</span>' + 
 				'<span class="status">' +
 					'<span class="time">' + text.input_date + '</span>' + 
-				'<span class="location"><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a></span></span>';
+				'<span class="location"><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”><img src="img/location.svg"></a></span></span>';
 				/*msgDom.innerHTML = '<div class="clearfix">'+
 					'<span class="text_message">' + text.message + '</span>' + 
 					'<br><span class="text_lat">' + text.lat + '</span>' + 
