@@ -142,7 +142,7 @@ $(function () {
 					'<br><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a></span>' + 
 					'<br><span class="text_Time">' + text.input_date + '</span>' + 
 					'<br><span class="id">' + id + '</span></div>';*/
-			$('#board').append(msgDom);
+			$('#board').prepend(msgDom);
 			scrollSet();
 			}else{
 				console.log('圏外');
