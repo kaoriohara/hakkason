@@ -123,9 +123,13 @@ $(function () {
 	function addText(text,id) {
 		latSa = Math.abs(lat - text.lat);
 		lonSa = Math.abs(lon - text.lon);
-		console.log(latSa);
+		//赤道周囲 Rx = 40076.5km
+		//緯度 Ry / (360×60) = 1852.25m
+		//1m = 360 * 60 / 1852.25
+		//子午線周囲 Ry = 40008.6km
+		//経度 Rx cosθ / (360×60) = 1519.85m
 		var msgDom = document.createElement("li");
-		if(latSa < 0.0 && lonSa < 0.1){
+		if(latSa < 1/111323.61111111111*100 && lonSa < 1/111323.61111111111*100){
 				msgDom.innerHTML = '<div class="clearfix">'+
 					'<span class="text_message">' + text.message + '</span>' + 
 					'<br><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a></span>' + 
