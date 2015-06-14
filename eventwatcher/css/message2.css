@@ -214,3 +214,39 @@ footer {
 	background-color: #A18E5C;
 	color: #fff;
 }
+
+@media screen and (max-width: 560px) {
+
+	header {
+		height: 170px;
+}
+	header h2 {
+	position: absolute;
+	left: -20px;
+	top: 30px;
+
+}
+header h2 img {
+	width: 50%;
+}
+
+header h1 {
+	position: absolute;
+	left: 40%;
+	top: 10px;
+}
+
+	
+header h1 img {
+	width: 100%;
+}
+	
+.container {
+	width: 100%;
+	padding: 0 8px;
+	box-sizing: border-box;
+
+}
+
+
+}
