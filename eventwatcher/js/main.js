@@ -1,6 +1,6 @@
 $(function () {
-/*	var remarkSound = $('#remarkSound')[0];
-	var paper_round = $('#paper_round')[0];*/
+	var remarkSound = $('#remarkSound')[0];
+	var paper_round = $('#paper_round')[0];
 	var textArea, board;
 	window.onload = function () {
 		textArea = document.getElementById("msg");
@@ -140,8 +140,7 @@ $(function () {
 			}else{
 				console.log('圏外');
 			}
-		
-		//remarkSound.play();
+		remarkSound.play();
 	}
 
 
@@ -150,12 +149,8 @@ $(function () {
 		$("#board")[0].scrollTop = $("#board")[0].scrollHeight; //CSS:overflowで表示領域を固定が必須
 	}
 
-	/*var nameRireki = localStorage.getItem('name');
-	$("#name").val(nameRireki);*/
 	var lat = localStorage.getItem('lat');
-	//$("#facebookId").val(facebookRireki);
 	var lon = localStorage.getItem('lon');
-	//$("#twitterId").val(twitterRireki);
 
 
 	//--------------------------発言削除用-----------------------------
@@ -204,21 +199,6 @@ $(function () {
 
 
 
-
-
-
-
-
-
-/*
-	latlonBtn.addEventListener('click',function(){
-		var text = textArea.value;
-		text = text.replace(/\r?\n/g, '<br>');
-		sendMap(text,lat,lon);
-	});
-
-*/
-
 	//位置情報送信用メソッド
 	function sendMap(text,lat,lon) {
 		if(!lat || !lon){
@@ -238,13 +218,6 @@ $(function () {
 		console.log("送信完了!");
 		textArea.value = "";
 		localStorage.setItem('name',name);
-/*		if(!twitterId){
-			localStorage.setItem('facebookId',facebookId);
-			localStorage.setItem('twitterId','');
-		}else{
-			localStorage.setItem('facebookId','');
-			localStorage.setItem('twitterId',twitterId);
-		}*/
 	}
 
 
