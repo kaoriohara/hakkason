@@ -50,7 +50,9 @@ $(function () {
 				console.log(lat);
 				console.log(lon);
 				console.log('取得成功');
-				latlonBtn.disabled = false;
+				//latlonBtn.disabled = false;
+				localStorage.setItem("lat", lat);
+				localStorage.setItem("lon", lon);
 			},
 			// 位置情報取得失敗時
 			function (error) {
@@ -91,6 +93,7 @@ $(function () {
 	}
 	$("#sendMessage").on("click", clickEvent);
 
+	
 	//データ受信（milkcocoa受信メソッド）
 	chatDataStore.on("push", function (data) { //pushをsendにするとデータベースに保存可能
 		addText(data.value, data.id);
@@ -118,16 +121,22 @@ $(function () {
 
 
 	function addText(text,id) {
+		latSa = Math.abs(lat - text.lat);
+		lonSa = Math.abs(lon - text.lon);
+		console.log(latSa);
 		var msgDom = document.createElement("li");
-
-
-		if(text.lat && text.lon){
-				msgDom.innerHTML = '<div class="clearfix"><span class="text_message">' + text.message + '</span><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a>' + 
-					'</span></div><span class="text_Time">' + text.input_date + '</span><span class="id">' + id + '</span>';
+		if(latSa < 0.0 && lonSa < 0.1){
+				msgDom.innerHTML = '<div class="clearfix">'+
+					'<span class="text_message">' + text.message + '</span>' + 
+					'<br><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a></span>' + 
+					'<br><span class="text_Time">' + text.input_date + '</span>' + 
+					'<br><span class="id">' + id + '</span></div>';
+			$('#board').append(msgDom);
+			scrollSet();
+			}else{
+				console.log('圏外');
 			}
-		}
-		$('#board').append(msgDom);
-		scrollSet();
+		
 		//remarkSound.play();
 	}
 
@@ -137,14 +146,15 @@ $(function () {
 		$("#board")[0].scrollTop = $("#board")[0].scrollHeight; //CSS:overflowで表示領域を固定が必須
 	}
 
-	var nameRireki = localStorage.getItem('name');
-	$("#name").val(nameRireki);
-	var facebookRireki = localStorage.getItem('facebookId');
-	$("#facebookId").val(facebookRireki);
-	var twitterRireki = localStorage.getItem('twitterId');
-	$("#twitterId").val(twitterRireki);
+	/*var nameRireki = localStorage.getItem('name');
+	$("#name").val(nameRireki);*/
+	var lat = localStorage.getItem('lat');
+	//$("#facebookId").val(facebookRireki);
+	var lon = localStorage.getItem('lon');
+	//$("#twitterId").val(twitterRireki);
 
 
+	//--------------------------発言削除用-----------------------------
 	$("#board").on("dblclick",'li',function(){
 		if($(this).find('.text_name').text() != localStorage.getItem("name")) return;
 		// 「OK」時の処理開始 ＋ 確認ダイアログの表示
@@ -154,9 +164,7 @@ $(function () {
 			paper_round.play();
 			chatDataStore.remove($(this).find('span.id').text());
 			$(this).remove();//削除処理
-
 		}// 「OK」時の処理終了
-
 		else{// 「キャンセル」時の処理開始
 			window.alert('キャンセルされました'); // 警告ダイアログを表示
 		}
