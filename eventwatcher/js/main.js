@@ -42,8 +42,6 @@ $(function () {
 		navigator.geolocation.getCurrentPosition(
 			// 位置情報取得成功時
 			function (pos) {
-				var location = "<li>" + "緯度：" + pos.coords.latitude + "</li>";
-				location += "<li>" + "経度：" + pos.coords.longitude + "</li>";
 				lat = pos.coords.latitude;
 				lon = pos.coords.longitude;
 				//setMarker(lat, lon);
@@ -53,6 +51,12 @@ $(function () {
 				//latlonBtn.disabled = false;
 				localStorage.setItem("lat", lat);
 				localStorage.setItem("lon", lon);
+				
+				chatDataStore.stream().sort('desc').size(100).next(function (err, data) {//最新から100件のデータを取得するためsortをdescに指定
+					$.each(data, function (i, v) {
+						addText(v.value, v.id);
+					});
+				});
 			},
 			// 位置情報取得失敗時
 			function (error) {
@@ -78,11 +82,7 @@ $(function () {
 	}
 	
 
-	chatDataStore.stream().sort('desc').size(100).next(function (err, data) {//最新から100件のデータを取得するためsortをdescに指定
-		$.each(data, function (i, v) {
-			addText(v.value, v.id);
-		});
-	});
+
 
 
 
@@ -135,17 +135,10 @@ $(function () {
 				'<span class="status">' +
 					'<span class="time">' + text.input_date + '</span>' + 
 				'<span class="location"><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”><img src="img/location.svg"></a></span></span>';
-				/*msgDom.innerHTML = '<div class="clearfix">'+
-					'<span class="text_message">' + text.message + '</span>' + 
-					'<br><span class="text_lat">' + text.lat + '</span>' + 
-					'<br><span class="text_lon">' + text.lon + '</span>' + 
-					'<br><a href="http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '" target=”_blank”>http://maps.google.co.jp/maps?q=loc:' + text.lat +',' + text.lon + '</a></span>' + 
-					'<br><span class="text_Time">' + text.input_date + '</span>' + 
-					'<br><span class="id">' + id + '</span></div>';*/
 			$('#board').prepend(msgDom);
 			scrollSet();
 			}else{
-				console.log('圏外');
+				console.log('範囲外メッセージの為取得せず');
 			}
 		remarkSound.play();
 	}
@@ -162,7 +155,6 @@ $(function () {
 
 	//--------------------------発言削除用-----------------------------
 	$("#board").on("dblclick",'li',function(){
-		//if($(this).find('.text_name').text() != localStorage.getItem("name")) return;
 		// 「OK」時の処理開始 ＋ 確認ダイアログの表示
 		if(window.confirm('発言を削除しますか？')){
 			paper_round.pause();
